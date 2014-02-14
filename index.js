@@ -1,12 +1,9 @@
 
 /**
- * Dependencies
- */
-
-var each = require('each');
-
-/**
  * Parse CSV
+ *
+ * @param {String} csv
+ * @return {Array}
  */
 
 module.exports = function csvToArray(csv) {
@@ -14,24 +11,29 @@ module.exports = function csvToArray(csv) {
   var rows = csv.split(/\r\n|\n/);
   var keys = rowToArray(rows.shift());
 
-  each(rows, function(row) {
+  for (var i = 0; i < rows.length; i++) {
     var obj = {};
-    var values = rowToArray(row);
-    each(keys, function(key) {
-      obj[key] = values.shift();
-    });
+    var values = rowToArray(rows[i]);
+    for (var j = 0; j < keys.length; j++) {
+      obj[keys[j]] = values.shift();
+    }
     array.push(obj);
-  });
+  }
 
   return array;
 };
 
 /**
  * Split a row and trim it
+ *
+ * @param {String} row
+ * @return {Array}
  */
 
 function rowToArray(row) {
-  return row.split(',').map(function(str) {
-    return str.trim();
-  });
+  var array = row.split(',');
+  for (var i = 0; i < array.length; i++) {
+    array[i] = array[i].trim();
+  }
+  return array;
 }

@@ -8,7 +8,7 @@ components: component.json
 clean:
 	rm -fr build components
 
-test:
+test: build
 	@component test phantom
 
 .PHONY: clean test
