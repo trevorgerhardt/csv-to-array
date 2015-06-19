@@ -6,22 +6,19 @@
  * @return {Array}
  */
 
-module.exports = function csvToArray(csv) {
-  var array = [];
-  var rows = csv.split(/\r\n|\n/);
-  var keys = rowToArray(rows.shift());
+module.exports = function csvToArray (csv) {
+  var rows = csv.split(/\r\n|\n/)
+  var keys = rowToArray(rows.shift())
 
-  for (var i = 0; i < rows.length; i++) {
-    var obj = {};
-    var values = rowToArray(rows[i]);
-    for (var j = 0; j < keys.length; j++) {
-      obj[keys[j]] = values.shift();
-    }
-    array.push(obj);
-  }
-
-  return array;
-};
+  return rows.map(function (r) {
+    var obj = {}
+    var values = rowToArray(r)
+    keys.forEach(function (k) {
+      obj[k] = values.shift()
+    })
+    return obj
+  })
+}
 
 /**
  * Split a row and trim it
@@ -30,10 +27,6 @@ module.exports = function csvToArray(csv) {
  * @return {Array}
  */
 
-function rowToArray(row) {
-  var array = row.split(',');
-  for (var i = 0; i < array.length; i++) {
-    array[i] = array[i].trim();
-  }
-  return array;
+function rowToArray (row) {
+  return row.split(',').map(function (c) { return c.trim() })
 }
