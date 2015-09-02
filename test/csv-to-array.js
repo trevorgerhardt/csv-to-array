@@ -20,9 +20,9 @@ describe('csv-to-array', function() {
  * Vars
  */
 
-var csv = 'name,title, company\nTrevor Gerhardt, Developer, Conveyal';
+var csv = 'name,title, company\nTrevor Gerhardt, Developer, "Conveyal, LLC"';
 var expected = [{
   name: 'Trevor Gerhardt',
   title: 'Developer',
-  company: 'Conveyal'
+  company: 'Conveyal, LLC'
 }];

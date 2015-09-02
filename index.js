@@ -28,5 +28,8 @@ module.exports = function csvToArray (csv) {
  */
 
 function rowToArray (row) {
-  return row.split(',').map(function (c) { return c.trim() })
+  return row.match(/(".*?"|[^\s",][^",]+[^\s",])(?=\s*,|\s*$)/g)
+    .map(function (c) {
+      return c.replace(/"/g,"").trim()
+    })
 }
